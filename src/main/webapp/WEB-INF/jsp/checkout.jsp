@@ -130,17 +130,19 @@
                         <div class="section-title text-center">
                             <h3 class="title">Your Order</h3>
                         </div>
-
+                        <div class="section-title text-center">
+                            <h4 class="title" style="color: darkseagreen">(Please check the order information.)</h4>
+                        </div>
                         <div class="order-summary">
                             <div class="order-col">
                                 <div><strong>PRODUCT</strong></div>
-                                <div><strong>UNIT PRICE</strong></div>
+                                <div><strong>UNIT PRICE</strong></div>                    
                             </div>
                             <!-- 1 -->
                             <c:forEach var="item" items="${sessionCart}">
-                                    <div class="order-products">
-                                        <div class="order-col">
-                                            <div>${item.quantity} x ${item.product.productName}</div>
+                                <div class="order-products">
+                                    <div class="order-col">
+                                        <div>${item.quantity} x ${item.product.productName}</div>
                                         <div><fmt:formatNumber type="number" value="${item.product.productPrice * item.quantity * (1 - item.discount)}"                                                       
                                                           pattern="###,###"/>₫</div>
                                     </div>    
@@ -157,15 +159,11 @@
                                                   pattern="###,###"/>₫</strong></div>
                             </div>
                         </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="terms">
-                            <label for="terms">
-                                <span></span>
-                                I've read and accept the <a href="#">terms & conditions</a>
-                            </label>
+                        <div style="text-align: center">
+                            <div style="display: inline-block">
+                                <button type="submit" form="confirm" value="Submit" class="primary-btn order-submit">Place order</button>
+                            </div>
                         </div>
-                        <button type="submit" form="confirm" value="Submit" class="primary-btn order-submit">Place order</button>
                     </div>
                     <!-- /Order Details -->
                 </div>
@@ -176,39 +174,7 @@
         <!-- /SECTION -->
 
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
-                                <input class="input" name="email" type="email" placeholder="Enter Your Email">
-                                <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
+        <jsp:include page="include/subscribe.jsp"/>
         <!-- /NEWSLETTER -->
         <!-- footer -->
         <jsp:include page="include/footer.jsp"/>

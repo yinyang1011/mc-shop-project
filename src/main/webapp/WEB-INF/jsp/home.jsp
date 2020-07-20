@@ -27,10 +27,10 @@
                     <ul class="main-nav nav navbar-nav">
                         <li class="active"><a href="<c:url value="/"/>">Home</a></li>
                         <li><a href="<c:url value="/store"/>">Store</a></li>
-                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                             <c:forEach var="brand" items="${listBrand}">
                             <li><a href="<c:url value="/store-detail/${brand.id}"/>">${brand.brandName}</a></li>
                             </c:forEach>
+                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -43,19 +43,54 @@
 
         <!-- SECTION -->
         <div class="section">
-            <!-- container -->
+
+            <!-- container promotion -->
+            <div class="container">
+                <div class="row">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <c:forEach var = "i" begin = "0" end = "${countImage-1}">
+                                <li data-target="#myCarousel" data-slide-to="${i}"></li>
+                                </c:forEach>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="<c:url value="/promotion"/>">
+                                <img src="<c:url value="/${imageIndex.urlImage}"/>" >
+                                </a>
+                            </div> 
+                            <c:forEach var="image" items="${images}">                     
+                                <div class="item">
+                                    <a href="<c:url value="/promotion"/>">
+                                    <img src="<c:url value="/${image.urlImage}"/>" >
+                                    </a>
+                                </div>    
+                            </c:forEach>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>    
+            </div>   
+            <!-- /container promotion -->
+
+            <!-- container product -->
             <div class="container">
                 <!-- row -->
                 <div class="row">
                     <!-- section title -->
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">Products</h3>
-                            <div class="section-nav">
-                                <ul class="section-tab-nav tab-nav">
-                                    <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                                </ul>
-                            </div>
+                            <h3 class="title">Ours Products</h3>
                         </div>
                     </div>
                     <!-- /section title -->
@@ -67,7 +102,6 @@
                                 <!-- tab -->
                                 <div id="tab1" class="tab-pane active">
                                     <div class="products-slick" data-nav="#slick-nav-1">
-
                                         <!-- product -->
                                         <c:forEach var="product" items="${products}">
                                             <div class="product">
@@ -76,15 +110,17 @@
                                                     <c:forEach var="p" items="${listPromotion}">
                                                         <c:if test = "${p.product.id == product.id}">
                                                             <div class="product-label">
-                                                                <span class="sale">${p.promotion.discountValue * 100} %</span>
+                                                                <span class="sale" style="font-weight:bold;font-size:150%">
+                                                                    <fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %
+                                                                </span>
                                                             </div>
                                                         </c:if>
                                                     </c:forEach>
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${product.brand.brandName}</p>
-                                                    <h3 class="product-name"><a href="#">${product.productName}</a></h3>
-                                                    
+                                                    <h3 class="product-name"><a href="<c:url value="/detail-product/${product.id}"/>">${product.productName}</a></h3>
+
                                                     <c:forEach var="pn" items="${productListNPM}">
                                                         <c:if test = "${pn.id == product.id}">
                                                             <h4 class="product-price"><fmt:formatNumber type="number" 
@@ -117,18 +153,16 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="product-btns">
-                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                        <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">favorite</span></button>
+                                                        <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
                                                     <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/order-product/${product.id}"/>'"><i class="fa fa-shopping-cart"></i>add to cart</button>
-                                                </div>
-
+                                                </div>                                          
                                             </div>
                                         </c:forEach>  
-                                        <!-- /product -->
+                                        <!-- /product  -->
 
                                     </div>
                                     <div id="slick-nav-1" class="products-slick-nav"></div>
@@ -141,11 +175,11 @@
                 </div>
                 <!-- /row -->
             </div>
-            <!-- /container -->
+            <!-- /container product -->
         </div>
         <!-- /SECTION -->
 
-        <!-- HOT DEAL SECTION -->
+        <!-- GO STORE SECTION -->
         <div id="hot-deal" class="section">
             <!-- container -->
             <div class="container">
@@ -156,32 +190,28 @@
                             <ul class="hot-deal-countdown">
                                 <li>
                                     <div>
-                                        <h3>02</h3>
-                                        <span>Days</span>
+                                        <h3>WE</h3>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
-                                        <h3>10</h3>
-                                        <span>Hours</span>
+                                        <h3>ARE</h3>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
-                                        <h3>34</h3>
-                                        <span>Mins</span>
+                                        <h3>MC - </h3>
                                     </div>
                                 </li>
                                 <li>
                                     <div>
-                                        <h3>60</h3>
-                                        <span>Secs</span>
+                                        <h3>SHOP</h3>
                                     </div>
                                 </li>
                             </ul>
-                            <h2 class="text-uppercase">hot deal this week</h2>
-                            <p>New Collection Up to 50% OFF</p>
-                            <a class="primary-btn cta-btn" href="#">Shop now</a>
+                            <h2 class="text-uppercase">what are you waiting for ?</h2>
+                            <p>GO TO SHOPPING NOW</p>
+                            <a class="primary-btn cta-btn" href="<c:url value="/store"/>">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -189,43 +219,10 @@
             </div>
             <!-- /container -->
         </div>
-        <!-- /HOT DEAL SECTION -->
-
+        <!-- /GO STORE SECTION -->
 
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
-                                <input class="input" name="email" type="email" placeholder="Enter Your Email">
-                                <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
+        <jsp:include page="include/subscribe.jsp"/>
         <!-- /NEWSLETTER -->
         <!-- footer -->
         <jsp:include page="include/footer.jsp"/>

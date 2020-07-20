@@ -35,6 +35,8 @@ public class OrdersEntity extends Profile implements Serializable  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    private String status; 
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "order_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -52,8 +54,6 @@ public class OrdersEntity extends Profile implements Serializable  {
     @JoinColumn(name = "account_id")
     private AccountEntity account;
     
-    private String status; confirmed
-    
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrdersDetailEntity> listOrdersDetail;
     
@@ -69,8 +69,6 @@ public class OrdersEntity extends Profile implements Serializable  {
         super(firstName, lastName, email, phone, address, idCard, gender, birthDate);
     }
     
-    
-
     public int getId() {
         return id;
     }
@@ -118,6 +116,14 @@ public class OrdersEntity extends Profile implements Serializable  {
 
     public void setShipDate(Date shipDate) {
         this.shipDate = shipDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

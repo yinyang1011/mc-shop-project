@@ -21,5 +21,8 @@ public class OrdersService {
    public OrdersEntity save(OrdersEntity ordersEntity) {
         return ordersRepository.save(ordersEntity);
     }
+   public OrdersEntity findOrdersById(int id) {
+        return ordersRepository.findOne(id);
+    }
     
 }

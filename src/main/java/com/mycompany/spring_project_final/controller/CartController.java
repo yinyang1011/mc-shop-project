@@ -5,11 +5,13 @@
  */
 package com.mycompany.spring_project_final.controller;
 
+import com.mycompany.spring_project_final.entities.BrandEntity;
 import com.mycompany.spring_project_final.entities.OrdersDetailEntity;
 import com.mycompany.spring_project_final.entities.OrdersEntity;
 import com.mycompany.spring_project_final.entities.ProductEntity;
 import com.mycompany.spring_project_final.entities.PromotionDetailEntity;
 import com.mycompany.spring_project_final.model.Item;
+import com.mycompany.spring_project_final.service.BrandService;
 import com.mycompany.spring_project_final.service.OrdersDetailService;
 import com.mycompany.spring_project_final.service.OrdersService;
 import com.mycompany.spring_project_final.service.ProductService;
@@ -53,6 +55,8 @@ public class CartController {
     private PromotionService promotionService;
     @Autowired
     private PromotionDetailService promotionDetailService;
+    @Autowired
+    private BrandService brandService;
 
     @RequestMapping(value = "cart", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
@@ -63,6 +67,8 @@ public class CartController {
                 totalPrice = totalPrice + (1 - item.getDiscount()) * (item.getProduct().getProductPrice() * item.getQuantity());
             }
         }
+        List<BrandEntity> listBrand = brandService.getBrands();
+        model.addAttribute("listBrand", listBrand);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("sessionCart", cart);
         return "cart";
@@ -120,6 +126,8 @@ public class CartController {
                     totalPrice = totalPrice + (1 - item.getDiscount()) * (item.getProduct().getProductPrice() * item.getQuantity());
                 }
             }
+            List<BrandEntity> listBrand = brandService.getBrands();
+            model.addAttribute("listBrand", listBrand);
             model.addAttribute("sessionCart", session.getAttribute("cart"));
             model.addAttribute("totalPrice", totalPrice);
             return "cart";
@@ -194,6 +202,8 @@ public class CartController {
                     totalPrice = totalPrice + (1 - item.getDiscount()) * (item.getProduct().getProductPrice() * item.getQuantity());
                 }
             }
+            List<BrandEntity> listBrand = brandService.getBrands();
+            model.addAttribute("listBrand", listBrand);
             model.addAttribute("sessionCart", session.getAttribute("cart"));
             model.addAttribute("totalPrice", totalPrice);
             return "cart";
@@ -235,6 +245,7 @@ public class CartController {
         ordersEntity.setOrderDate(today);
         ordersEntity.setShipDate(shipday);
         ordersEntity.setTotalPrice(totalPrice);
+        ordersEntity.setStatus("ordered");
         ordersService.save(ordersEntity);
         ordersDetailService.save(ordersEntity, cart);
 
@@ -264,7 +275,8 @@ public class CartController {
                     + "<td>" + intoMoney + "</td>\n"
                     + "</tr>\n");
         }
-
+        String link = "http://localhost:8080/Spring_Project_Final/verify/" + ordersEntity.getId();
+        
         mailSevice.sendEmail(ordersEntity.getEmail(), "MCSHOP - Check Your Order", "<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "<head>\n"
@@ -324,9 +336,21 @@ public class CartController {
                 + "  </tr>\n"
                 + "</table>\n"
                 + "<p id=\"text\" style=\"text-align:center\">Thank you for shopping at MC-Shop !!!</p>\n"
+                + "<h4 style=\"text-align:center\"><a href=\"" + link + "\">Please click on this link to confirm your order</a></h4>"
                 + "</body>\n"
                 + "</html>");
         session.removeAttribute("cart");
+        return "thanks";
+    }
+
+    @RequestMapping(value = "/verify/{ordersId}")
+    public String verifyEmail(Model model,
+            @PathVariable("ordersId") int ordersId) {
+        OrdersEntity ordersEntity = ordersService.findOrdersById(ordersId);
+        ordersEntity.setStatus("confirmed");
+        ordersService.save(ordersEntity);
+        int num = 1;
+        model.addAttribute("num", num);
         return "thanks";
     }
 }

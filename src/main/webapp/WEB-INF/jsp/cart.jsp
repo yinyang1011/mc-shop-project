@@ -7,6 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,10 +29,10 @@
                     <ul class="main-nav nav navbar-nav">
                         <li><a href="<c:url value="/"/>">Home</a></li>
                         <li><a href="<c:url value="/store"/>">Store</a></li>
-                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                             <c:forEach var="brand" items="${listBrand}">
                             <li><a href="<c:url value="/store-detail/${brand.id}"/>">${brand.brandName}</a></li>
                             </c:forEach>
+                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -59,9 +61,9 @@
                                 <th>Into money</th>
                             </tr>
                             <c:forEach var="item" items="${sessionCart}">
-                                    <tr>
-                                        <td align="center"><a
-                                                href="${pageContext.request.contextPath}/remove-product/${item.product.id}"
+                                <tr>
+                                    <td align="center"><a
+                                            href="${pageContext.request.contextPath}/remove-product/${item.product.id}"
                                             onclick="return confirm('Are you sure?')"><i class="fa fa-trash fa-3x" aria-hidden="true"></i></a></td>
                                     <td>${item.product.productName}</td>
                                     <td>${item.product.brand.brandName}</td>
@@ -74,7 +76,7 @@
                                             <div class="form-group">
                                                 <input type="number" name="quantity" class="form-control" value="${item.quantity}"/>
                                                 <div style="text-align: center">
-                                                <input type="image" src="<c:url value="/resources/img/save.png"/>" alt="submit" width="45" height="45"/>
+                                                    <input type="image" src="<c:url value="/resources/img/save.png"/>" alt="submit" width="45" height="45"/>
                                                 </div>
                                             </div>
                                         </form>
@@ -82,12 +84,25 @@
                                     <td><fmt:formatNumber type="number" value = "${item.product.productPrice * item.quantity * (1 - item.discount)}" pattern="###,###" />₫</td>
                                 </tr>
                             </c:forEach>
-                            <tr>
-                                <td style="text-align: right ; font-weight: bold" colspan="7">Total amount:</td>
-                                <td>
-                                    <fmt:formatNumber type="number" value = "${totalPrice}" pattern="###,###" />₫
-                                </td>
-                            </tr>
+
+                            <c:choose>
+                                <c:when test="${sessionCart == null || fn:length(sessionCart) <= 0}">
+                                    <tr>
+                                        <td style="color: red;font-weight: bold;text-align: center" colspan="8">You have not added any items to your shopping cart!</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: red;font-weight: bold;text-align: center" colspan="8"><button onclick="location.href = '<c:url value="/store"/>'" type="button" class="btn btn-success btn-lg">Go to Shopping page!</button></td>
+                                    </tr>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td style="text-align: right ; font-weight: bold" colspan="7">Total amount:</td>
+                                        <td>
+                                            <fmt:formatNumber type="number" value = "${totalPrice}" pattern="###,###" />₫
+                                        </td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
                         </table>
                     </div>                    
                     <button onclick="location.href = '<c:url value="/check-out"/>'" style="float : right" type="button" class="btn btn-primary btn-lg">Submit</button>
@@ -95,43 +110,11 @@
             </div>
 
             <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
-                                <input class="input" name="email" type="email" placeholder="Enter Your Email">
-                                <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /NEWSLETTER -->
-        <!-- footer -->
-        <jsp:include page="include/footer.jsp"/>
-        <!-- jQuery Plugins -->
-        <jsp:include page="include/js-page.jsp"/>
+            <jsp:include page="include/subscribe.jsp"/>
+            <!-- /NEWSLETTER -->
+            <!-- footer -->
+            <jsp:include page="include/footer.jsp"/>
+            <!-- jQuery Plugins -->
+            <jsp:include page="include/js-page.jsp"/>
     </body>
 </html>

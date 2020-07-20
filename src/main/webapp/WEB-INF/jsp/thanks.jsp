@@ -26,10 +26,11 @@
                     <ul class="main-nav nav navbar-nav">
                         <li><a href="<c:url value="/"/>">Home</a></li>
                         <li><a href="<c:url value="/store"/>">Store</a></li>
-                        <li class="active"><a href="<c:url value="/about-us"/>">Thanks page</a></li>
+                        <li><a href="<c:url value="/about-us"/>">About Us</a></li>
                             <c:forEach var="brand" items="${listBrand}">
                             <li><a href="<c:url value="/store-detail/${brand.id}"/>">${brand.brandName}</a></li>
                             </c:forEach>
+                        <li class="active"><a href="#">Thanks page</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -42,45 +43,23 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="section-title text-center">
-                    <h3 class="title">Thank you for shopping at MC-Shop</h3>
+                    <c:choose>
+                        <c:when test = "${num == 1}">
+                            <h3 class="title">Your order has been confirmed!</h3>
+                            <p><button onclick="location.href = '<c:url value="/store"/>'" type="button" class="btn btn-success btn-lg">Shopping More ? </button></p>
+                        </c:when>
+                        <c:otherwise>
+                            <h3 class="title">Thank you for shopping at MC-Shop</h3>
+                            <p><button onclick="location.href = '<c:url value="/store"/>'" type="button" class="btn btn-success btn-lg">Go to Shopping page!</button></p>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </div>
         </div>
 
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
-                                <input class="input" name="email" type="email" placeholder="Enter Your Email">
-                                <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
+        <jsp:include page="include/subscribe.jsp"/>
         <!-- /NEWSLETTER -->
         <!-- footer -->
         <jsp:include page="include/footer.jsp"/>

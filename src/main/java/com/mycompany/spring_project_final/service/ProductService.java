@@ -43,4 +43,20 @@ public class ProductService {
     public List<ProductEntity> getProductNoPromotion() {
         return productRepository.findProductNoPromotion();
     }
+    
+    public List<ProductEntity> searchProductByName(String searchStr) {
+        return productRepository.findByProduct_name(searchStr);
+    }
+    
+    public List<ProductEntity> searchProductByRam(String searchStr) {
+        return productRepository.findByRam_memory(searchStr);
+    }
+    
+    public List<ProductEntity> searchProductByChip(String searchStr) {
+        return productRepository.findByProcessor_type(searchStr);
+    }
+    
+//    public List<ProductEntity> findProductHot() {
+//        return productRepository.findProductHot();
+//    }
 }

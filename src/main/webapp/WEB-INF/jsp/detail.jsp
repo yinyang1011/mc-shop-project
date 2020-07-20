@@ -27,10 +27,10 @@
                     <ul class="main-nav nav navbar-nav">
                         <li><a href="<c:url value="/"/>">Home</a></li>
                         <li><a href="<c:url value="/store"/>">Store</a></li>
-                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                             <c:forEach var="brand" items="${listBrand}">
                             <li><a href="<c:url value="/store-detail/${brand.id}"/>">${brand.brandName}</a></li>
                             </c:forEach>
+                        <li><a href="<c:url value="/about-us"/>">About us</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -42,27 +42,6 @@
         <!-- content -->
 
         <!-- Section 1 -->
-        <!-- BREADCRUMB -->
-        <div id="breadcrumb" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="breadcrumb-tree">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">All brand</a></li>
-                            <li><a href="#">${product.brand.brandName}</a></li>
-                            <li class="active">${product.productName}</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /BREADCRUMB -->
-
         <!-- SECTION -->
         <div class="section">
             <!-- container -->
@@ -70,23 +49,13 @@
                 <!-- row -->
                 <div class="row">
                     <!-- Product main img -->
-                    <div class="col-md-5 col-md-push-2">
+                    <div class="col-md-5 col-md-push-2">                     
                         <div id="product-main-img">
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
+                            <c:forEach var="image" items="${listImages}">
+                                <div class="product-preview">
+                                    <img src="<c:url value="/${image.urlImage}"/>" height="300px" alt="">
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <!-- /Product main img -->
@@ -94,21 +63,11 @@
                     <!-- Product thumb imgs -->
                     <div class="col-md-2  col-md-pull-5">
                         <div id="product-imgs">
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
-
-                            <div class="product-preview">
-                                <img src="<c:url value="/${product.productUrlImage}"/>" alt="">
-                            </div>
+                            <c:forEach var="image" items="${listImages}">
+                                <div class="product-preview">
+                                    <img src="<c:url value="/${image.urlImage}"/>" height="100px" alt="">
+                                </div>
+                            </c:forEach>    
                         </div>
                     </div>
                     <!-- /Product thumb imgs -->
@@ -123,9 +82,8 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                                    <i class="fa fa-star"></i>
+                                </div>    
                             </div>
                             <div>
                                 <c:forEach var="pn" items="${productListNPM}">
@@ -151,7 +109,7 @@
 
                                 <span class="product-available">In Stock</span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>We promise to offer the best value in the marketplace. We work to help you to upgrade your device hassle-free. So. if you are planning or want to upgrade your old laptop to a new one, then get its estimated value at the Cashify, sell old laptop online and get paid within a day. </p>
 
                             <div class="add-to-cart">
                                 <div class="qty-label">
@@ -168,8 +126,7 @@
                             </div>
 
                             <ul class="product-btns">
-                                <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> favorite</a></li>
                             </ul>
 
                             <ul class="product-links">
@@ -179,10 +136,10 @@
 
                             <ul class="product-links">
                                 <li>Share:</li>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="https://www.facebook.com/my.cua11/"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.facebook.com/my.cua11/"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.facebook.com/my.cua11/"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="https://www.facebook.com/my.cua11/"><i class="fa fa-envelope"></i></a></li>
                             </ul>
 
                         </div>
@@ -196,7 +153,6 @@
                             <ul class="tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                                <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
                             </ul>
                             <!-- /product tab nav -->
 
@@ -269,184 +225,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /tab2  -->
-
-                                <!-- tab3  -->
-                                <div id="tab3" class="tab-pane fade in">
-                                    <div class="row">
-                                        <!-- Rating -->
-                                        <div class="col-md-3">
-                                            <div id="rating">
-                                                <div class="rating-avg">
-                                                    <span>4.5</span>
-                                                    <div class="rating-stars">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                </div>
-                                                <ul class="rating">
-                                                    <li>
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-progress">
-                                                            <div style="width: 80%;"></div>
-                                                        </div>
-                                                        <span class="sum">3</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </div>
-                                                        <div class="rating-progress">
-                                                            <div style="width: 60%;"></div>
-                                                        </div>
-                                                        <span class="sum">2</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </div>
-                                                        <div class="rating-progress">
-                                                            <div></div>
-                                                        </div>
-                                                        <span class="sum">0</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </div>
-                                                        <div class="rating-progress">
-                                                            <div></div>
-                                                        </div>
-                                                        <span class="sum">0</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </div>
-                                                        <div class="rating-progress">
-                                                            <div></div>
-                                                        </div>
-                                                        <span class="sum">0</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- /Rating -->
-
-                                        <!-- Reviews -->
-                                        <div class="col-md-6">
-                                            <div id="reviews">
-                                                <ul class="reviews">
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            <h5 class="name">John</h5>
-                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                            <div class="review-rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o empty"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            <h5 class="name">John</h5>
-                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                            <div class="review-rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o empty"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            <h5 class="name">John</h5>
-                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                            <div class="review-rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o empty"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <ul class="reviews-pagination">
-                                                    <li class="active">1</li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- /Reviews -->
-
-                                        <!-- Review Form -->
-                                        <div class="col-md-3">
-                                            <div id="review-form">
-                                                <form class="review-form">
-                                                    <input class="input" type="text" placeholder="Your Name">
-                                                    <input class="input" type="email" placeholder="Your Email">
-                                                    <textarea class="input" placeholder="Your Review"></textarea>
-                                                    <div class="input-rating">
-                                                        <span>Your Rating: </span>
-                                                        <div class="stars">
-                                                            <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-                                                            <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-                                                            <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-                                                            <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-                                                            <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-                                                        </div>
-                                                    </div>
-                                                    <button class="primary-btn">Submit</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <!-- /Review Form -->
-                                    </div>
-                                </div>
-                                <!-- /tab3  -->
+                                <!-- /tab2  -->                                
                             </div>
                             <!-- /product tab content  -->
                         </div>
@@ -486,14 +265,44 @@
                                             <div class="product">
                                                 <div class="product-img">
                                                     <img src="<c:url value="/${product.productUrlImage}"/>" height="200px">
-                                                    <div class="product-label">
-                                                        <span class="new">NEW</span>
-                                                    </div>
+                                                    <c:forEach var="p" items="${listPromotion}">
+                                                        <c:if test = "${p.product.id == product.id}">
+                                                            <div class="product-label">
+                                                                <span class="sale" style="font-weight:bold;font-size:150%">
+                                                                    <fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %
+                                                                </span>
+                                                            </div>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${product.brand.brandName}</p>
-                                                    <h3 class="product-name"><a href="#">${product.productName}</a></h3>
-                                                    <h4 class="product-price">${product.productPrice}<del class="product-old-price">OLD PRICE</del></h4>
+                                                    <h3 class="product-name"><a href="<c:url value="/detail-product/${product.id}"/>">${product.productName}</a></h3>
+
+                                                    <c:forEach var="pn" items="${productListNPM}">
+                                                        <c:if test = "${pn.id == product.id}">
+                                                            <h4 class="product-price"><fmt:formatNumber type="number" 
+                                                                              value="${product.productPrice}"                                                       
+                                                                              pattern="###,###"/>₫ 
+                                                            </h4>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <c:forEach var="p" items="${listPromotion}">
+                                                        <c:if test = "${p.product.id == product.id}">
+                                                            <h4 class="product-price"><fmt:formatNumber type="number" 
+                                                                              value="${product.productPrice * (1 - p.promotion.discountValue)}"                                                       
+                                                                              pattern="###,###"/>₫ 
+                                                                <div class="product-label">
+                                                                    <del class="product-old-price">
+                                                                        <fmt:formatNumber type="number" value="${product.productPrice}"                                                       
+                                                                                          pattern="###,###"/>₫ </del>
+
+                                                                </div>
+                                                            </h4>
+                                                        </c:if>  
+                                                    </c:forEach>      
+
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -503,14 +312,12 @@
                                                     </div>
                                                     <div class="product-btns">
                                                         <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                        <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                                        <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
-                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>add to cart</button>
-                                                </div>
-
+                                                    <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/order-product/${product.id}"/>'"><i class="fa fa-shopping-cart"></i>add to cart</button>
+                                                </div>                                          
                                             </div>
                                         </c:forEach>  
                                         <!-- /product -->
@@ -530,39 +337,7 @@
         </div>
         <!-- /SECTION 2 -->
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
-                                <input class="input" name="email" type="email" placeholder="Enter Your Email">
-                                <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
+        <jsp:include page="include/subscribe.jsp"/>
         <!-- /NEWSLETTER -->
         <!-- footer -->
         <jsp:include page="include/footer.jsp"/>
