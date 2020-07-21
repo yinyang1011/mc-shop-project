@@ -52,15 +52,15 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
             nativeQuery = true)
     public List<ProductEntity> findByProcessor_type(String searchStr);
 
-//    @Query(value = "SELECT p.battery, p.brandId, p.hard_drive_capacity, p.operating_system, p.id, p.processor_speed, p.processor_type, p.product_description,\n"
-//            + "p.product_name, p.product_price, p.product_url_image, p.ram_memory, p.screen_size, p.video_graphics_adaptor, p.weight, p.wireless_technology\n"
-//            + "FROM orders_detail o\n"
-//            + "INNER JOIN product p\n"
-//            + "ON o.product_id = p.id\n"
-//            + "GROUP BY o.product_id\n"
-//            + "ORDER BY o.quantity*COUNT(*) \n"
-//            + "DESC\n"
-//            + "LIMIT 5",
-//            nativeQuery = true)
-//    public List<ProductEntity> findProductHot();
+    @Query(value = "SELECT p.battery, p.brandId, p.hard_drive_capacity, p.operating_system, p.id, p.processor_speed, p.processor_type, p.product_description,\n"
+            + "p.product_name, p.product_price, p.product_url_image, p.ram_memory, p.screen_size, p.video_graphics_adaptor, p.weight, p.wireless_technology\n"
+            + "FROM orders_detail o\n"
+            + "INNER JOIN product p\n"
+            + "ON o.product_id = p.id\n"
+            + "GROUP BY o.product_id\n"
+            + "ORDER BY o.quantity*COUNT(*) \n"
+            + "DESC\n"
+            + "LIMIT 5",
+            nativeQuery = true)
+    public List<ProductEntity> findProductHot();
 }

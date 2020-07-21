@@ -56,7 +56,7 @@ public class ProductService {
         return productRepository.findByProcessor_type(searchStr);
     }
     
-//    public List<ProductEntity> findProductHot() {
-//        return productRepository.findProductHot();
-//    }
+    public List<ProductEntity> findProductHot() {
+        return productRepository.findProductHot();
+    }
 }

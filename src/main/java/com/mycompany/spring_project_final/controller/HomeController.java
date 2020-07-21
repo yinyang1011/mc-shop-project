@@ -61,8 +61,8 @@ public class HomeController {
         List<ProductEntity> productListNPM = (List<ProductEntity>) productService.getProductNoPromotion();
         model.addAttribute("productListNPM", productListNPM);
 
-//        List<ProductEntity> productListHot = (List<ProductEntity>) productService.findProductHot();
-//        model.addAttribute("productListHot", productListHot);
+        List<ProductEntity> productListHot = (List<ProductEntity>) productService.findProductHot();
+        model.addAttribute("productListHot", productListHot);
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)

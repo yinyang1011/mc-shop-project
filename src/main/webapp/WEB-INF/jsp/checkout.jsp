@@ -84,11 +84,11 @@
                                       action="${pageContext.request.contextPath}/check-out-finish" onsubmit="return message();">
                                 <div class="form-group">
                                     <input class="input" type="text" name="firstName" placeholder="First Name" value="${orders.firstName}" 
-                                           required pattern="^[A-Za-z_]{1,20}$" title="Tên viết liền không dấu và không bao gồm số, tối đa 20 ký tự">
+                                           required title="Tên nên viết liền không dấu và không bao gồm số">
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="text" name="lastName" placeholder="Last Name" value="${orders.lastName}" 
-                                           required pattern="^[A-Za-z_]{1,20}$" title="Tên viết liền không dấu và không bao gồm số, tối đa 20 ký tự">
+                                           required title="Tên nên viết liền không dấu và không bao gồm số">
                                 </div>
                                 <div class="form-group">
                                     <input class="input" type="email" name="email" placeholder="Email" value="${orders.email}" 

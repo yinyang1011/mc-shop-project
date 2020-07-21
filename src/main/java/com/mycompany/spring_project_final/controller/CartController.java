@@ -265,7 +265,9 @@ public class CartController {
             double y = item.getQuantity() * item.getProduct().getProductPrice() * (1 - item.getDiscount());
             String price = currencyVN.format(x);
             String intoMoney = currencyVN.format(y);
-            String discount = String.valueOf(item.getDiscount() * 100) + " %";
+            String discountDouble = String.valueOf(item.getDiscount() * 100);
+            String[] parts = discountDouble.split("[.]");
+            String discount = parts[0] + " %";
             text.append("<tr> \n"
                     + "<td>" + stt++ + "</td>\n"
                     + "<td>" + item.getProduct().getProductName() + "</td>\n"
@@ -276,7 +278,7 @@ public class CartController {
                     + "</tr>\n");
         }
         String link = "http://localhost:8080/Spring_Project_Final/verify/" + ordersEntity.getId();
-        
+
         mailSevice.sendEmail(ordersEntity.getEmail(), "MCSHOP - Check Your Order", "<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "<head>\n"
