@@ -97,7 +97,8 @@
                                         <c:if test = "${p.product.id == product.id}">
                                         <h3 class="product-price"><fmt:formatNumber type="number" 
                                                           value="${product.productPrice * (1 - p.promotion.discountValue)}"                                                       
-                                                          pattern="###,###"/>₫
+                                                          pattern="###,###"/>₫ 
+                                             (<fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %)
                                             <div class="product-label">
                                                 <del class="product-old-price"><fmt:formatNumber type="number" 
                                                                   value="${product.productPrice}"                                                       
@@ -109,7 +110,7 @@
 
                                 <span class="product-available">In Stock</span>
                             </div>
-                            <p>We promise to offer the best value in the marketplace. We work to help you to upgrade your device hassle-free. So. if you are planning or want to upgrade your old laptop to a new one, then get its estimated value at the Cashify, sell old laptop online and get paid within a day. </p>
+                            <p>${product.productDescription}</p>
 
                             <div class="add-to-cart">
                                 <div class="qty-label">
