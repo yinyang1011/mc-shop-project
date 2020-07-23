@@ -34,7 +34,7 @@
                 <!-- /LOGO -->
 
                 <!-- SEARCH BAR -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="header-search">
                         <form id="search" name="search" method="POST" action="${pageContext.request.contextPath}/search">
                             <select name="searchId" class="input-select">
@@ -50,8 +50,16 @@
                 <!-- /SEARCH BAR -->
 
                 <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
+                <div class="col-md-4 clearfix">
                     <div class="header-ctn">
+                        <!-- Wishlist -->
+                        <div>
+                            <a href="<c:url value="/compare"/>">
+                                <i class="fa fa-arrows"></i>
+                                <span>Compare</span>
+                            </a>
+                        </div>
+                        <!-- /Wishlist -->
                         <!-- Wishlist -->
                         <div>
                             <a href="#">

@@ -105,13 +105,19 @@
                             <!-- store top filter -->
                             <div class="store-filter clearfix">
                                 <ul class="store-grid">
-                                    <li><a href="<c:url value="/sortasc"/>"><i class="fa fa-sort-amount-asc"></i></li>
-                                    <li><a href="<c:url value="/sortdesc"/>"><i class="fa fa-sort-amount-desc"></i></a></li>
+                                    <c:if test = "${x == 0}">
+                                        <li><a href="<c:url value="/sortasc"/>"><i class="fa fa-sort-amount-asc"></i></li>
+                                        <li class="active"><a href="<c:url value="/sortdesc"/>"><i class="fa fa-sort-amount-desc"></i></a></li>
+                                            </c:if>
+                                            <c:if test = "${x == 1}">
+                                        <li class="active"><a href="<c:url value="/sortasc"/>"><i class="fa fa-sort-amount-asc"></i></li>
+                                        <li><a href="<c:url value="/sortdesc"/>"><i class="fa fa-sort-amount-desc"></i></a></li>
+                                            </c:if>
                                 </ul>
                             </div>
                             <!-- /store top filter -->
                             <!-- product -->
-                            <c:forEach var="product" items="${products}">
+                            <c:forEach var="product" items="${productsPrice}">
                                 <div class="col-md-4">
                                     <div class="product">
                                         <div class="product-img">

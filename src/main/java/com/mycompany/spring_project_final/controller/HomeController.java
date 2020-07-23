@@ -9,14 +9,18 @@ import com.mycompany.spring_project_final.entities.BrandEntity;
 import com.mycompany.spring_project_final.entities.ProductEntity;
 import com.mycompany.spring_project_final.entities.ProductImageEntity;
 import com.mycompany.spring_project_final.entities.PromotionDetailEntity;
+import com.mycompany.spring_project_final.model.Item;
 import com.mycompany.spring_project_final.service.BrandService;
 import com.mycompany.spring_project_final.service.ProductImageService;
 import com.mycompany.spring_project_final.service.ProductService;
 import com.mycompany.spring_project_final.service.PromotionDetailService;
 import com.mycompany.spring_project_final.service.SendMailSevice;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,7 +137,7 @@ public class HomeController {
         List<ProductEntity> products = productService.getProductsByBrandId(brandId);
         model.addAttribute("products", products);
         model.addAttribute("brandId", brandId);
-        return "store";
+        return "storedetail";
     }
 
     @RequestMapping(value = "/sendemail", method = RequestMethod.POST)
@@ -163,5 +167,83 @@ public class HomeController {
         }
         model.addAttribute("errorMessage", "Not Found: \"" + searchStr + "\" in any documents.");
         return "result";
+    }
+
+    @RequestMapping(value = "compare", method = RequestMethod.GET)
+    public String indexCompare(Model model, HttpSession session) {
+        init(model);
+        List<BrandEntity> listBrand = brandService.getBrands();
+        ProductEntity p1 = (ProductEntity) session.getAttribute("p1");
+        ProductEntity p2 = (ProductEntity) session.getAttribute("p2");
+        model.addAttribute("listBrand", listBrand);
+        model.addAttribute("p1", p1);
+        model.addAttribute("p2", p2);
+        return "compare";
+    }
+
+    @RequestMapping("/compare/{productId}")
+    public String compareProduct(Model model,
+            HttpSession session,
+            @PathVariable("productId") int productId
+    ) {
+        init(model);
+        ProductEntity product = productService.findProductById(productId);
+        if (session.getAttribute("p1") == null) {
+            session.setAttribute("p1", product);
+        } else if (session.getAttribute("p2") == null) {
+            session.setAttribute("p2", product);
+        } else if (session.getAttribute("p2") != null && session.getAttribute("p2") != null) {
+            model.addAttribute("messageError", "Please delete the product you are comparing before adding a new one.");
+        }
+        model.addAttribute("p1", session.getAttribute("p1"));
+        model.addAttribute("p2", session.getAttribute("p2"));
+        return "compare";
+    }
+
+    @RequestMapping(value = "remove-compare/{productId}", method = RequestMethod.GET)
+    public String removeCompare(Model model,
+            @PathVariable("productId") int productId,
+            HttpSession session) {
+        init(model);
+        List<BrandEntity> listBrand = brandService.getBrands();
+        ProductEntity product = productService.findProductById(productId);
+        ProductEntity p1 = (ProductEntity) session.getAttribute("p1");
+        ProductEntity p2 = (ProductEntity) session.getAttribute("p2");
+        if (p1 == null) {
+            if (p2.getId() == product.getId()) {
+                session.removeAttribute("p2");
+            }
+        } else if (p1 != null) {
+            if (p1.getId() == product.getId()) {
+                session.removeAttribute("p1");
+            } else if (p2.getId() == product.getId()) {
+                session.removeAttribute("p2");
+            }
+        }
+        model.addAttribute("listBrand", listBrand);
+        return "compare";
+    }
+    
+    @RequestMapping("sortasc")
+    public String sortAsc(Model model
+    ) {
+        init(model);
+        List<ProductEntity> products = (List<ProductEntity>) productService.getProducts();
+        model.addAttribute("products", products);
+        List<ProductEntity> productsAsc = productService.sortProductsAsc(products);
+        model.addAttribute("productsPrice", productsAsc);
+        model.addAttribute("x", 1);
+        return "sort";
+    }
+    @RequestMapping("sortdesc")
+    public String sortDesc(Model model
+    ) {
+        init(model);
+        List<ProductEntity> products = (List<ProductEntity>) productService.getProducts();
+        model.addAttribute("products", products);
+        List<ProductEntity> productsDesc = productService.sortProductsDesc(products);
+        model.addAttribute("productsPrice", productsDesc);
+        model.addAttribute("x", 0);
+        return "sort";
     }
 }

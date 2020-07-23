@@ -8,7 +8,7 @@
                             <p>Sign Up for the <strong>NEWSLETTER</strong></p>
                             <form method="POST" action="${pageContext.request.contextPath}/sendemail" class="form-inline" id="form1">
                                 <input class="input" name="email" type="email" placeholder="Enter Your Email"
-                                       required title="Mail ph?i bao g?m ký t? @, tên mi?n ph?i chính xác">
+                                       required title="Mail must include an @ character, the domain name must be correct">
                                 <button type="submit" form="form1" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
                             </form>
                             <ul class="newsletter-follow">

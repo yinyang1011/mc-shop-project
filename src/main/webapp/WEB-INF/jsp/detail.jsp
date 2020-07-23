@@ -98,7 +98,7 @@
                                         <h3 class="product-price"><fmt:formatNumber type="number" 
                                                           value="${product.productPrice * (1 - p.promotion.discountValue)}"                                                       
                                                           pattern="###,###"/>₫ 
-                                             (<fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %)
+                                            (<fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %)
                                             <div class="product-label">
                                                 <del class="product-old-price"><fmt:formatNumber type="number" 
                                                                   value="${product.productPrice}"                                                       
@@ -128,6 +128,7 @@
 
                             <ul class="product-btns">
                                 <li><a href="#"><i class="fa fa-heart-o"></i> favorite</a></li>
+                                <li><a href="<c:url value="/compare/${product.id}"/>"><i class="fa fa-exchange"></i> compare</a></li>
                             </ul>
 
                             <ul class="product-links">
@@ -313,6 +314,7 @@
                                                     </div>
                                                     <div class="product-btns">
                                                         <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                                        <button class="add-to-compare"onclick="location.href = '<c:url value="/compare/${product.id}"/>'"><i class="fa fa-exchange"></i><span class="tooltipp">compare</span></button>
                                                         <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                                     </div>
                                                 </div>

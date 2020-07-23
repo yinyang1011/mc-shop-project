@@ -102,14 +102,6 @@
                     <div id="store" class="col-md-9">
                         <!-- store products -->
                         <div class="col-md-12">
-                            <!-- store top filter -->
-                            <div class="store-filter clearfix">
-                                <ul class="store-grid">
-                                    <li><a href="<c:url value="/sortasc"/>"><i class="fa fa-sort-amount-asc"></i></li>
-                                    <li><a href="<c:url value="/sortdesc"/>"><i class="fa fa-sort-amount-desc"></i></a></li>
-                                </ul>
-                            </div>
-                            <!-- /store top filter -->
                             <!-- product -->
                             <c:forEach var="product" items="${products}">
                                 <div class="col-md-4">

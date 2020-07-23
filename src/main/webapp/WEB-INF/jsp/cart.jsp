@@ -73,11 +73,9 @@
                                     <td>${item.discount}</td>                                 
                                     <td>
                                         <form method="POST" action="${pageContext.request.contextPath}/update-quantity/${item.product.id}" class="form-inline">
-                                            <div class="form-group">
+                                            <div class="form-group" style="display:flex">
                                                 <input type="number" name="quantity" class="form-control" value="${item.quantity}"/>
-                                                <div style="text-align: center">
-                                                    <input type="image" src="<c:url value="/resources/img/save.png"/>" alt="submit" width="45" height="45"/>
-                                                </div>
+                                                <input type="image" src="<c:url value="/resources/img/save.png"/>" alt="submit" width="35" height="35"/>
                                             </div>
                                         </form>
                                     </td>

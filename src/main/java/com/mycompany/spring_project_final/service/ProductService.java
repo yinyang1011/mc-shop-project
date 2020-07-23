@@ -7,7 +7,9 @@ package com.mycompany.spring_project_final.service;
 
 import com.mycompany.spring_project_final.entities.ProductEntity;
 import com.mycompany.spring_project_final.repositories.ProductRepository;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +60,18 @@ public class ProductService {
     
     public List<ProductEntity> findProductHot() {
         return productRepository.findProductHot();
+    }
+    
+    public List<ProductEntity> sortProductsAsc(List<ProductEntity> products) {   
+        List<ProductEntity> productsAsc = products.stream() 
+                .sorted(Comparator.comparingDouble(ProductEntity::getProductPrice)) 
+                .collect(Collectors.toList());
+        return productsAsc;
+    }
+    public List<ProductEntity> sortProductsDesc(List<ProductEntity> products) {   
+        List<ProductEntity> productsDesc = products.stream() 
+                .sorted(Comparator.comparingDouble(ProductEntity::getProductPrice).reversed()) 
+                .collect(Collectors.toList());
+        return productsDesc;
     }
 }

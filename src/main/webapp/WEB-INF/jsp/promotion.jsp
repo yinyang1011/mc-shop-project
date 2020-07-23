@@ -120,13 +120,13 @@
                                                 <div class="product-body">
                                                     <p class="product-category">${product.brand.brandName}</p>
                                                     <h3 class="product-name"><a href="<c:url value="/detail-product/${product.id}"/>">${product.productName}</a></h3>
-                                                            <h4 class="product-price"><fmt:formatNumber type="number" 
-                                                                              value="${product.productPrice * (1 - p.promotion.discountValue)}"                                                       
-                                                                              pattern="###,###"/>₫ 
-                                                                <del class="product-old-price">
-                                                                    <fmt:formatNumber type="number" value="${product.productPrice}"                                                       
-                                                                                      pattern="###,###"/>₫ </del>
-                                                            </h4>       
+                                                    <h4 class="product-price"><fmt:formatNumber type="number" 
+                                                                      value="${product.productPrice * (1 - p.promotion.discountValue)}"                                                       
+                                                                      pattern="###,###"/>₫ 
+                                                        <del class="product-old-price">
+                                                            <fmt:formatNumber type="number" value="${product.productPrice}"                                                       
+                                                                              pattern="###,###"/>₫ </del>
+                                                    </h4>       
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -136,6 +136,7 @@
                                                     </div>
                                                     <div class="product-btns">
                                                         <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">favorite</span></button>
+                                                        <button class="add-to-compare"onclick="location.href = '<c:url value="/compare/${product.id}"/>'"><i class="fa fa-exchange"></i><span class="tooltipp">compare</span></button>
                                                         <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                                     </div>
                                                 </div>
