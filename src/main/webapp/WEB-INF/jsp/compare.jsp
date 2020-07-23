@@ -65,12 +65,12 @@
                                     <th><a style="font-weight:bold" href="<c:url value="/detail-product/${p1.id}"/>">${p2.productName}</a></th>
                                 </tr>
                                 <tr class="active">
-                                    <td>Image Product</td>
+                                    <td style="font-weight:bold">Image Product</td>
                                     <td><img style="width: 150px" src="<c:url value="/${p1.productUrlImage}"/>" alt=" Null"></td>
                                     <td><img style="width: 150px" src="<c:url value="/${p2.productUrlImage}"/>" alt=" Null"></td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Price</td>
+                                    <td style="font-weight:bold">Price</td>
                                     <td>
                                         <c:forEach var="pn" items="${productListNPM}">
                                             <c:if test = "${pn.id == p1.id}">
@@ -113,7 +113,7 @@
                                         </c:forEach></td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Discount</td>
+                                    <td style="font-weight:bold">Discount</td>
                                     <td>
                                         <c:forEach var="p" items="${listPromotion}">
                                             <c:if test = "${p.product.id == p1.id}">
@@ -130,62 +130,62 @@
                                 </tr>
 
                                 <tr class="success">
-                                    <td>Processor Type</td>
+                                    <td style="font-weight:bold">Processor Type</td>
                                     <td>${p1.processorType}</td>
                                     <td>${p2.processorType}</td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Hard Drive Capacity</td>
+                                    <td style="font-weight:bold">Hard Drive Capacity</td>
                                     <td>${p1.hardDriveCapacity}</td>
                                     <td>${p2.hardDriveCapacity}</td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Processor Speed</td>
+                                    <td style="font-weight:bold">Processor Speed</td>
                                     <td>${p1.processorSpeed}</td>
                                     <td>${p2.processorSpeed}</td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Wireless Technology</td>
+                                    <td style="font-weight:bold">Wireless Technology</td>
                                     <td>${p1.wirelessTechnology}</td>
                                     <td>${p2.wirelessTechnology}</td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Ram Memory</td>
+                                    <td style="font-weight:bold">Ram Memory</td>
                                     <td>${p1.ramMemory}</td>
                                     <td>${p2.ramMemory}</td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Operating System</td>
+                                    <td style="font-weight:bold">Operating System</td>
                                     <td>${p1.operatingSystem}</td>
                                     <td>${p2.operatingSystem}</td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Battery</td>
+                                    <td style="font-weight:bold">Battery</td>
                                     <td>${p1.battery}</td>
                                     <td>${p2.battery}</td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Screen Size</td>
+                                    <td style="font-weight:bold">Screen Size</td>
                                     <td>${p1.screenSize}</td>
                                     <td>${p2.screenSize}</td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Video Graphics Adaptor</td>
+                                    <td style="font-weight:bold">Video Graphics Adaptor</td>
                                     <td>${p1.videoGraphicsAdaptor}</td>
                                     <td>${p2.videoGraphicsAdaptor}</td>
                                 </tr>
                                 <tr class="active">
-                                    <td>Weight</td>
+                                    <td style="font-weight:bold">Weight</td>
                                     <td>${p1.weight}</td>
                                     <td>${p2.weight}</td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Brand</td>
+                                    <td style="font-weight:bold">Brand</td>
                                     <td>${p1.brand.brandName}</td>
                                     <td>${p2.brand.brandName}</td>
                                 </tr>   
                                 <tr class="active">
-                                    <td>Remove</td>
+                                    <td style="font-weight:bold">Remove</td>
                                     <td><c:if test = "${p1.id!=null}">
                                             <button class="btn btn-danger" onclick="location.href = '<c:url value="/remove-compare/${p1.id}"/>'"><i class="fa fa-ban"></i> REMOVE</button>
                                         </c:if></td>
@@ -195,7 +195,7 @@
                                     </td>
                                 </tr>
                                 <tr class="success">
-                                    <td>Add to cart</td>
+                                    <td style="font-weight:bold">Add to cart</td>
                                     <td><c:if test = "${p1.id!=null}">
                                             <button class="btn btn-success" onclick="location.href = '<c:url value="/order-product/${p1.id}"/>'"><i class="fa fa-shopping-cart"></i> ADD TO CART</button>                                        </c:if></td>
                                     <td><c:if test = "${p2.id!=null}">

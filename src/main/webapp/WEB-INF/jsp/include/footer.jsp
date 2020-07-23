@@ -57,7 +57,8 @@
                         <ul class="footer-links">
                             <li><a href="#">Account</a></li>
                             <li><a href="<c:url value="/cart"/>">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="#">View Favorite</a></li>
+                            <li><a href="<c:url value="/compare"/>">View Compare</a></li>
                             <li><a href="<c:url value="/about-us"/>">Help</a></li>
                         </ul>
                     </div>

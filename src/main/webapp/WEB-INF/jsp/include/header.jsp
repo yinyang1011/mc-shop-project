@@ -64,7 +64,7 @@
                         <div>
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
+                                <span>Favorite</span>
                             </a>
                         </div>
                         <!-- /Wishlist -->
