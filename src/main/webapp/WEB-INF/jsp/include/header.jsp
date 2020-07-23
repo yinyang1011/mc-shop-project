@@ -11,7 +11,16 @@
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-dollar"></i> VND</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> Account</a></li>
+                    <c:choose>
+                        <c:when test = "${accountSession != null}">
+                        <li><a href="<c:url value="/account"/>"><i class="fa fa-user-o"></i> ${accountSession.email}</a></li>
+                        <li><a href="<c:url value="/logout"/>"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="<c:url value="/account"/>"><i class="fa fa-user-o"></i> Account</a></li>
+                        </c:otherwise>
+                    </c:choose>
+
             </ul>
         </div>
     </div>

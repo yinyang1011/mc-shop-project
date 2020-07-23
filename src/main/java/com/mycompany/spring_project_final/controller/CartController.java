@@ -5,6 +5,7 @@
  */
 package com.mycompany.spring_project_final.controller;
 
+import com.mycompany.spring_project_final.entities.AccountEntity;
 import com.mycompany.spring_project_final.entities.BrandEntity;
 import com.mycompany.spring_project_final.entities.OrdersDetailEntity;
 import com.mycompany.spring_project_final.entities.OrdersEntity;
@@ -68,6 +69,8 @@ public class CartController {
             }
         }
         List<BrandEntity> listBrand = brandService.getBrands();
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         model.addAttribute("listBrand", listBrand);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("sessionCart", cart);
@@ -130,6 +133,8 @@ public class CartController {
             model.addAttribute("listBrand", listBrand);
             model.addAttribute("sessionCart", session.getAttribute("cart"));
             model.addAttribute("totalPrice", totalPrice);
+            AccountEntity account = (AccountEntity) session.getAttribute("account");
+            model.addAttribute("accountSession", account);
             return "cart";
         } else {
             return "redirect:/";
@@ -137,11 +142,13 @@ public class CartController {
     }
 
     @RequestMapping(value = "remove-product/{productId}", method = RequestMethod.GET)
-    public String remove(@PathVariable("productId") int productId, HttpSession session) {
+    public String remove(Model model, @PathVariable("productId") int productId, HttpSession session) {
         List<Item> cart = (List<Item>) session.getAttribute("cart");
         int index = this.exists(productId, cart);
         cart.remove(index);
         session.setAttribute("cart", cart);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "redirect:/cart";
     }
 
@@ -155,6 +162,8 @@ public class CartController {
             cart.get(index).setQuantity(quantity);
         }
         session.setAttribute("cart", cart);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "redirect:/cart";
     }
 
@@ -206,6 +215,8 @@ public class CartController {
             model.addAttribute("listBrand", listBrand);
             model.addAttribute("sessionCart", session.getAttribute("cart"));
             model.addAttribute("totalPrice", totalPrice);
+            AccountEntity account = (AccountEntity) session.getAttribute("account");
+            model.addAttribute("accountSession", account);
             return "cart";
         } else {
             return "redirect:/";
@@ -223,6 +234,8 @@ public class CartController {
         }
         OrdersEntity ordersEntity = new OrdersEntity();
         ordersEntity.setTotalPrice(totalPrice);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         model.addAttribute("sessionCart", cart);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("orders", ordersEntity);
@@ -234,6 +247,7 @@ public class CartController {
             @ModelAttribute("orders") OrdersEntity ordersEntity,
             HttpSession session) throws MessagingException {
         List<Item> cart = (List<Item>) session.getAttribute("cart");
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
         double totalPrice = 0;
         if (!CollectionUtils.isEmpty(cart)) {
             for (Item item : cart) {
@@ -246,6 +260,9 @@ public class CartController {
         ordersEntity.setShipDate(shipday);
         ordersEntity.setTotalPrice(totalPrice);
         ordersEntity.setStatus("ordered");
+        if (account != null) {
+            ordersEntity.setAccount(account);
+        }
         ordersService.save(ordersEntity);
         ordersDetailService.save(ordersEntity, cart);
 
@@ -342,17 +359,21 @@ public class CartController {
                 + "</body>\n"
                 + "</html>");
         session.removeAttribute("cart");
+        model.addAttribute("accountSession", account);
         return "thanks";
     }
 
     @RequestMapping(value = "/verify/{ordersId}")
     public String verifyEmail(Model model,
-            @PathVariable("ordersId") int ordersId) {
+            @PathVariable("ordersId") int ordersId,
+            HttpSession session) {
         OrdersEntity ordersEntity = ordersService.findOrdersById(ordersId);
         ordersEntity.setStatus("confirmed");
         ordersService.save(ordersEntity);
         int num = 1;
         model.addAttribute("num", num);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "thanks";
     }
 }

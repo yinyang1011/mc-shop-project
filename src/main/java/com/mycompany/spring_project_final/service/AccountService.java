@@ -20,8 +20,23 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public AccountEntity
-            findAccountByEmailAndPassword(String email, String password) {
+    public AccountEntity findAccountByEmailAndPassword(String email, String password) {
         return accountRepository.findAccountByEmailAndPassword(email, password);
+    }
+    
+    public boolean findAccountByEmail(String email) {
+        AccountEntity account = accountRepository.findAccountByEmail(email);
+        if (account == null) {
+            return false;
+        }
+        return true;
+    }
+    
+    public AccountEntity save(AccountEntity accountEntity) {
+        return accountRepository.save(accountEntity);
+    }
+    
+    public AccountEntity findAccountById(int id) {
+        return accountRepository.findOne(id);
     }
 }

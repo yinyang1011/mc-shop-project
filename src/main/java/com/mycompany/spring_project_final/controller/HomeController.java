@@ -5,6 +5,7 @@
  */
 package com.mycompany.spring_project_final.controller;
 
+import com.mycompany.spring_project_final.entities.AccountEntity;
 import com.mycompany.spring_project_final.entities.BrandEntity;
 import com.mycompany.spring_project_final.entities.ProductEntity;
 import com.mycompany.spring_project_final.entities.ProductImageEntity;
@@ -67,11 +68,14 @@ public class HomeController {
 
         List<ProductEntity> productListHot = (List<ProductEntity>) productService.findProductHot();
         model.addAttribute("productListHot", productListHot);
+
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String viewHome(Model model) {
+    public String viewHome(Model model, HttpSession session) {
         init(model);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         List<ProductImageEntity> listImagePromotion = productImageService.getImageInCurrentPromotion();
 
         ProductImageEntity imageIndex = listImagePromotion.get(0);
@@ -89,24 +93,21 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/promotion", method = RequestMethod.GET)
-    public String viewProductPromotion(Model model) {
+    public String viewProductPromotion(Model model, HttpSession session) {
         init(model);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "promotion";
     }
 
-    @RequestMapping("/login")
-    public String viewLogin(Model model,
-            @RequestParam(value = "error", required = false) boolean isError) {
-        if (isError) {
-            model.addAttribute("message", "login fail.");
-        }
-        return "login";
-    }
 
     @RequestMapping("/detail-product/{productId}")
     public String viewProduct(Model model,
-            @PathVariable("productId") int productId
+            @PathVariable("productId") int productId,
+            HttpSession session
     ) {
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         init(model);
         ProductEntity product = productService.findProductById(productId);
         List<ProductImageEntity> listImages = productImageService.getImageById(productId);
@@ -116,25 +117,32 @@ public class HomeController {
     }
 
     @RequestMapping("/store")
-    public String store(Model model
+    public String store(Model model, HttpSession session
     ) {
         init(model);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "store";
     }
 
     @RequestMapping("/about-us")
-    public String aboutUs(Model model
+    public String aboutUs(Model model, HttpSession session
     ) {
         init(model);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "aboutus";
     }
 
     @RequestMapping("/store-detail/{brandId}")
     public String viewProductWithBrand(Model model,
-            @PathVariable("brandId") int brandId
+            @PathVariable("brandId") int brandId,
+            HttpSession session
     ) {
         init(model);
         List<ProductEntity> products = productService.getProductsByBrandId(brandId);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         model.addAttribute("products", products);
         model.addAttribute("brandId", brandId);
         return "storedetail";
@@ -142,16 +150,20 @@ public class HomeController {
 
     @RequestMapping(value = "/sendemail", method = RequestMethod.POST)
     public String sendEmail(Model model,
-            @ModelAttribute("email") String email
+            @ModelAttribute("email") String email,
+            HttpSession session
     ) throws MessagingException {
         mailSevice.sendEmail(email, "MCSHOP", "Thank you for your interest in MC-Shop products.");
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "aboutus";
     }
 
     @RequestMapping("/search")
     public String search(Model model,
             @ModelAttribute("searchId") int searchId,
-            @ModelAttribute("searchStr") String searchStr
+            @ModelAttribute("searchStr") String searchStr,
+            HttpSession session
     ) {
         String x = "%" + searchStr + "%";
         init(model);
@@ -166,6 +178,8 @@ public class HomeController {
             model.addAttribute("listProducts", products);
         }
         model.addAttribute("errorMessage", "Not Found: \"" + searchStr + "\" in any documents.");
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "result";
     }
 
@@ -178,6 +192,8 @@ public class HomeController {
         model.addAttribute("listBrand", listBrand);
         model.addAttribute("p1", p1);
         model.addAttribute("p2", p2);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "compare";
     }
 
@@ -197,6 +213,8 @@ public class HomeController {
         }
         model.addAttribute("p1", session.getAttribute("p1"));
         model.addAttribute("p2", session.getAttribute("p2"));
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "compare";
     }
 
@@ -221,11 +239,13 @@ public class HomeController {
             }
         }
         model.addAttribute("listBrand", listBrand);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "compare";
     }
-    
+
     @RequestMapping("sortasc")
-    public String sortAsc(Model model
+    public String sortAsc(Model model, HttpSession session
     ) {
         init(model);
         List<ProductEntity> products = (List<ProductEntity>) productService.getProducts();
@@ -233,10 +253,13 @@ public class HomeController {
         List<ProductEntity> productsAsc = productService.sortProductsAsc(products);
         model.addAttribute("productsPrice", productsAsc);
         model.addAttribute("x", 1);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "sort";
     }
+
     @RequestMapping("sortdesc")
-    public String sortDesc(Model model
+    public String sortDesc(Model model, HttpSession session
     ) {
         init(model);
         List<ProductEntity> products = (List<ProductEntity>) productService.getProducts();
@@ -244,6 +267,8 @@ public class HomeController {
         List<ProductEntity> productsDesc = productService.sortProductsDesc(products);
         model.addAttribute("productsPrice", productsDesc);
         model.addAttribute("x", 0);
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
         return "sort";
     }
 }

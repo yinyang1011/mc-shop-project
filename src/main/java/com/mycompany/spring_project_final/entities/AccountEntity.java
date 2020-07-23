@@ -30,23 +30,17 @@ public class AccountEntity extends Profile implements Serializable {
 
     private String email;
     private String password;
-
-    @ManyToMany(cascade = {CascadeType.REMOVE,
-        CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(name = "acc_role_relationship",
-            joinColumns = @JoinColumn(name = "acc_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "acc_role_id",
-                    referencedColumnName = "id"))
-    private List<AccountRoleEntity> accountRoles;
+    private String status;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<OrdersEntity> listOrders;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<FavoriteEntity> listFavorite;
-
+    
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<AccountRoleDetailEntity> listAccountRoleDetail;
+    
     public AccountEntity() {
     }
 
@@ -74,12 +68,12 @@ public class AccountEntity extends Profile implements Serializable {
         this.password = password;
     }
 
-    public List<AccountRoleEntity> getAccountRoles() {
-        return accountRoles;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAccountRoles(List<AccountRoleEntity> accountRoles) {
-        this.accountRoles = accountRoles;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<OrdersEntity> getListOrders() {
@@ -98,4 +92,12 @@ public class AccountEntity extends Profile implements Serializable {
         this.listFavorite = listFavorite;
     }
 
+    public List<AccountRoleDetailEntity> getListAccountRoleDetail() {
+        return listAccountRoleDetail;
+    }
+
+    public void setListAccountRoleDetail(List<AccountRoleDetailEntity> listAccountRoleDetail) {
+        this.listAccountRoleDetail = listAccountRoleDetail;
+    }
+    
 }

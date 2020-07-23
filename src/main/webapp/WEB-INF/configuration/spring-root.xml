@@ -9,5 +9,4 @@
           http://www.springframework.org/schema/context/spring-context-4.3.xsd
 ">
     <import resource="spring-jpa.xml" />
-    <import resource="spring-security.xml" />
 </beans>

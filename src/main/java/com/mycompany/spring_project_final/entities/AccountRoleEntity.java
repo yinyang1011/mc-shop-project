@@ -8,6 +8,8 @@ package com.mycompany.spring_project_final.entities;
 import com.mycompany.spring_project_final.enums.AccountRole;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,10 +29,11 @@ public class AccountRoleEntity implements Serializable {
     private int id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "roles")
     private AccountRole role = AccountRole.ROLE_USER;
 
-    @ManyToMany(mappedBy = "accountRoles")
-    private List<AccountEntity> accounts;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<AccountRoleDetailEntity> listAccountRoleDetail;
 
     public int getId() {
         return id;
@@ -47,12 +51,12 @@ public class AccountRoleEntity implements Serializable {
         this.role = role;
     }
 
-    public List<AccountEntity> getAccounts() {
-        return accounts;
+    public List<AccountRoleDetailEntity> getListAccountRoleDetail() {
+        return listAccountRoleDetail;
     }
 
-    public void setAccounts(List<AccountEntity> accounts) {
-        this.accounts = accounts;
+    public void setListAccountRoleDetail(List<AccountRoleDetailEntity> listAccountRoleDetail) {
+        this.listAccountRoleDetail = listAccountRoleDetail;
     }
 
 }

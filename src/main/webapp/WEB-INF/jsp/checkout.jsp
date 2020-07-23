@@ -80,47 +80,111 @@
                             <div class="section-title">
                                 <h3 class="title">Billing address</h3>
                             </div>
-                            <mvc:form id="confirm" name="confirm" method="POST" modelAttribute="orders"
-                                      action="${pageContext.request.contextPath}/check-out-finish" onsubmit="return message();">
-                                <div class="form-group">
-                                    <input class="input" type="text" name="firstName" placeholder="First Name" value="${orders.firstName}" 
-                                           required title="Tên nên viết liền không dấu và không bao gồm số">
-                                </div>
-                                <div class="form-group">
-                                    <input class="input" type="text" name="lastName" placeholder="Last Name" value="${orders.lastName}" 
-                                           required title="Tên nên viết liền không dấu và không bao gồm số">
-                                </div>
-                                <div class="form-group">
-                                    <input class="input" type="email" name="email" placeholder="Email" value="${orders.email}" 
-                                           required title="Mail phải bao gồm ký tự @, tên miền phải chính xác">
-                                </div>
-                                <div class="form-group">
-                                    <input class="input" type="text" name="address" placeholder="Address" value="${orders.address}" required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="input" type="tel" name="phone" placeholder="Telephone" value="${orders.phone}" required
-                                           pattern="[0-9].{9}$" title="Số điện thoại chỉ bao gồm số và có 10 chữ số!">
-                                </div>
-                                <div class="form-group">
-                                    <input class="input" type="text" name="idCard" placeholder="Card ID" value="${orders.idCard}" required
-                                           pattern="[0-9].{9}$" title="Số chứng minh nhân dân chỉ bao gồm số và có 10 chữ số!">
-                                </div>
-                                <div class="form-group">
-                                    <label for="birthDate">Birth Date</label>
-                                    <input class="input" type="date" name="birthDate" id="birthDate" value="${orders.birthDate}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="gender">Gender</label>
-                                    <div class="form-check">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="gender" id="male" value="male">Male
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="gender" id="female" value="female">Female
-                                        </label>
-                                    </div>                                  
-                                </div>
-                            </mvc:form>
+                            <c:choose>
+                                <c:when test = "${accountSession != null}">
+                                    <mvc:form id="confirm" name="confirm" method="POST" modelAttribute="orders"
+                                              action="${pageContext.request.contextPath}/check-out-finish" onsubmit="return message();">
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="firstName" placeholder="First Name" value="${accountSession.firstName}" 
+                                                   required title="Tên nên viết liền không dấu và không bao gồm số">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="lastName" placeholder="Last Name" value="${accountSession.lastName}" 
+                                                   required title="Tên nên viết liền không dấu và không bao gồm số">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="email" name="email" placeholder="Email" value="${accountSession.email}" 
+                                                   required title="Mail phải bao gồm ký tự @, tên miền phải chính xác">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="address" placeholder="Address" value="${accountSession.address}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="tel" name="phone" placeholder="Telephone" value="${accountSession.phone}" required
+                                                   pattern="[0-9].{9}$" title="Số điện thoại chỉ bao gồm số và có 10 chữ số!">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="idCard" placeholder="Card ID" value="${accountSession.idCard}" required
+                                                   pattern="[0-9].{9}$" title="Số chứng minh nhân dân chỉ bao gồm số và có 10 chữ số!">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="birthDate">Birth Date</label>
+                                            <input class="input" type="date" name="birthDate" id="birthDate" value="${accountSession.birthDate}">
+                                        </div>
+                                        <c:choose>
+                                            <c:when test = "${accountSession.gender eq 'male'}">
+                                                <div class="form-group">
+                                                    <label for="gender">Gender</label>
+                                                    <div class="form-check">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" id="male" value="male" checked>Male
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" id="female" value="female">Female
+                                                        </label>
+                                                    </div>                                  
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="form-group">
+                                                    <label for="gender">Gender</label>
+                                                    <div class="form-check">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" id="male" value="male">Male
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" id="female" value="female" checked>Female
+                                                        </label>
+                                                    </div>                                  
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </mvc:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <mvc:form id="confirm" name="confirm" method="POST" modelAttribute="orders"
+                                              action="${pageContext.request.contextPath}/check-out-finish" onsubmit="return message();">
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="firstName" placeholder="First Name" value="${orders.firstName}" 
+                                                   required title="Tên nên viết liền không dấu và không bao gồm số">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="lastName" placeholder="Last Name" value="${orders.lastName}" 
+                                                   required title="Tên nên viết liền không dấu và không bao gồm số">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="email" name="email" placeholder="Email" value="${orders.email}" 
+                                                   required title="Mail phải bao gồm ký tự @, tên miền phải chính xác">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="address" placeholder="Address" value="${orders.address}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="tel" name="phone" placeholder="Telephone" value="${orders.phone}" required
+                                                   pattern="[0-9].{9}$" title="Số điện thoại chỉ bao gồm số và có 10 chữ số!">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="input" type="text" name="idCard" placeholder="Card ID" value="${orders.idCard}" required
+                                                   pattern="[0-9].{9}$" title="Số chứng minh nhân dân chỉ bao gồm số và có 10 chữ số!">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="birthDate">Birth Date</label>
+                                            <input class="input" type="date" name="birthDate" id="birthDate" value="${orders.birthDate}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <div class="form-check">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" id="male" value="male">Male
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" id="female" value="female">Female
+                                                </label>
+                                            </div>                                  
+                                        </div>
+                                    </mvc:form>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- /Billing Details -->
                     </div>

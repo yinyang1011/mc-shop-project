@@ -16,16 +16,21 @@ import org.springframework.stereotype.Repository;
  * @author AnhLe
  */
 @Repository
-public interface AccountRepository extends
-        CrudRepository<AccountEntity, Integer> {
+public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
 
-    AccountEntity findByEmailLikeAndPasswordLike(
-            String email, String password);
-
-    @Query("Select acc From AccountEntity acc "
-            + "Join fetch acc.accountRoles "
-            + "Where acc.email Like ?1 and "
-            + "acc.password Like ?2")
+    @Query(value = "SELECT *\n"
+            + "FROM account\n"
+            + "WHERE email = ?1 \n"
+            + "AND password = ?2\n"
+            + ";",
+            nativeQuery = true)
     AccountEntity findAccountByEmailAndPassword(
             String email, String password);
+    
+    @Query(value = "SELECT *\n"
+            + "FROM account\n"
+            + "WHERE email = ?1 \n"
+            + ";",
+            nativeQuery = true)
+    AccountEntity findAccountByEmail(String email);
 }

@@ -241,6 +241,17 @@ ORDER BY quantity*COUNT(*)
 DESC
 ;
 
+-- Find Account by email , pass
+SELECT *
+FROM account
+WHERE email = 'yinyang1011@gmail.com' 
+AND password = '123456'
+;
+-- Tim san pham theo Account Id
+SELECT * 
+FROM orders
+WHERE account_id = 10
+;
 
 
 

@@ -55,7 +55,7 @@
                     <div class="footer">
                         <h3 class="footer-title">Service</h3>
                         <ul class="footer-links">
-                            <li><a href="#">Account</a></li>
+                            <li><a href="<c:url value="/account"/>">Account</a></li>
                             <li><a href="<c:url value="/cart"/>">View Cart</a></li>
                             <li><a href="#">View Favorite</a></li>
                             <li><a href="<c:url value="/compare"/>">View Compare</a></li>
