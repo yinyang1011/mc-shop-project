@@ -1,3 +1,8 @@
+<%-- 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

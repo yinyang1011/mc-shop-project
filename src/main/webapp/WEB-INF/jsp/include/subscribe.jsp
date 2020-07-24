@@ -1,3 +1,8 @@
+<%-- 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
+--%>
 <div id="newsletter" class="section">
             <!-- container -->
             <div class="container">

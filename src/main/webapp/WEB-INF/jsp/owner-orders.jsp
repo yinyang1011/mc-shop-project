@@ -1,7 +1,7 @@
 <%-- 
-    Document   : home
-    Created on : Jun 20, 2019, 6:59:56 PM
-    Author     : 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -75,6 +75,14 @@
                                     <td><fmt:formatNumber type="number" value = "${order.totalPrice}" pattern="###,###" />₫</td>         
                                 </tr>
                             </c:forEach>
+                            <c:if test="${listOrders == null || fn:length(listOrders) <= 0}">
+                                <tr>
+                                    <td style="color: red;font-weight: bold;text-align: center" colspan="5">You have not buy any products yet</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: red;font-weight: bold;text-align: center" colspan="5"><button onclick="location.href = '<c:url value="/store"/>'" type="button" class="btn btn-success btn-lg">Go to Store</button></td>
+                                </tr>
+                            </c:if>
                         </table>
                     </div>
                 </div>

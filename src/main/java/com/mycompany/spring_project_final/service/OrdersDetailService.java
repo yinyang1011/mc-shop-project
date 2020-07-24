@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
  */
 package com.mycompany.spring_project_final.service;
 
@@ -17,7 +17,7 @@ import org.springframework.util.CollectionUtils;
 
 /**
  *
- * @author Administrator
+ * @author CUA
  */
 @Service
 public class OrdersDetailService {

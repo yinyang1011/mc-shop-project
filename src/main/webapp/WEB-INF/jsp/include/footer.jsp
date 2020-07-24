@@ -1,3 +1,8 @@
+<%-- 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -57,7 +62,7 @@
                         <ul class="footer-links">
                             <li><a href="<c:url value="/account"/>">Account</a></li>
                             <li><a href="<c:url value="/cart"/>">View Cart</a></li>
-                            <li><a href="#">View Favorite</a></li>
+                            <li><a href="<c:url value="/favorite"/>">View Favorite</a></li>
                             <li><a href="<c:url value="/compare"/>">View Compare</a></li>
                             <li><a href="<c:url value="/about-us"/>">Help</a></li>
                         </ul>

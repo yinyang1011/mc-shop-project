@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
  */
 package com.mycompany.spring_project_final.controller;
 
@@ -193,6 +193,7 @@ public class AccountController {
         AccountEntity account = (AccountEntity) session.getAttribute("account");
         if (account == null) {
             model.addAttribute("message", "(Log in before adding/view favorite products!)");
+            model.addAttribute("listBrand", listBrand);
             return "signin";
         }
         List<ProductEntity> listProducts = productService.findFavoriteProducts(account.getId());

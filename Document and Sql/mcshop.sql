@@ -261,8 +261,8 @@ p.product_name, p.product_price, p.product_url_image, p.ram_memory, p.screen_siz
 FROM orders_detail o
 INNER JOIN product p
 ON o.product_id = p.id
-GROUP BY o.product_id
-ORDER BY o.quantity*COUNT(*) 
+GROUP BY o.product_id 
+ORDER BY o.quantity+(count(*)-1)
 DESC
 LIMIT 5
 ;

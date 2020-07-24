@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
  */
 package com.mycompany.spring_project_final.repositories;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Administrator
+ * @author CUA
  */
 @Repository
 public interface PromotionRepository extends CrudRepository<PromotionEntity, Integer>{

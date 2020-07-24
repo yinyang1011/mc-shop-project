@@ -1,3 +1,8 @@
+/*
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
+ */
 package com.mycompany.spring_project_final.service;
 
 import javax.mail.MessagingException;

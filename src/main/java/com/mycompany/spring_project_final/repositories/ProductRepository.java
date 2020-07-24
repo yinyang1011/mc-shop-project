@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
  */
 package com.mycompany.spring_project_final.repositories;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Administrator
+ * @author CUA
  */
 @Repository
 public interface ProductRepository extends CrudRepository<ProductEntity, Integer> {
@@ -57,8 +57,8 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
             + "FROM orders_detail o\n"
             + "INNER JOIN product p\n"
             + "ON o.product_id = p.id\n"
-            + "GROUP BY o.product_id\n"
-            + "ORDER BY o.quantity*COUNT(*) \n"
+            + "GROUP BY o.product_id \n"
+            + "ORDER BY o.quantity+(count(*)-1)\n"
             + "DESC\n"
             + "LIMIT 5",
             nativeQuery = true)

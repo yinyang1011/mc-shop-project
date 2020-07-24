@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Document   : MC-Project
+ * Finished   : 25/07/2020
+ * Author     : Nguyen Ngoc Man
  */
 package com.mycompany.spring_project_final.controller;
 
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author Man
+ * @author CUA
  */
 @Controller
 public class HomeController {
@@ -153,6 +153,7 @@ public class HomeController {
             @ModelAttribute("email") String email,
             HttpSession session
     ) throws MessagingException {
+        init(model);
         mailSevice.sendEmail(email, "MCSHOP", "Thank you for your interest in MC-Shop products.");
         AccountEntity account = (AccountEntity) session.getAttribute("account");
         model.addAttribute("accountSession", account);

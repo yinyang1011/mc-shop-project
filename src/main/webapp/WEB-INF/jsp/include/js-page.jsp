@@ -1,3 +1,8 @@
+<%-- 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jQuery Plugins -->
 <script src="<c:url value="/resources/js/jquery.min.js"/>"></script>

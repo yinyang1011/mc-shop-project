@@ -1,3 +1,8 @@
+<%-- 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- NAVIGATION -->
 <nav id="navigation">

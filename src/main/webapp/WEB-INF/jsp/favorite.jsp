@@ -1,7 +1,7 @@
 <%-- 
-    Document   : home
-    Created on : Jun 20, 2019, 6:59:56 PM
-    Author     : 
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -108,6 +108,14 @@
                                     </td>         
                                 </tr>
                             </c:forEach>
+                            <c:if test="${listProducts == null || fn:length(listProducts) <= 0}">
+                                <tr>
+                                    <td style="color: red;font-weight: bold;text-align: center" colspan="6">You have not added any product your favorite list!</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: red;font-weight: bold;text-align: center" colspan="6"><button onclick="location.href = '<c:url value="/account"/>'" type="button" class="btn btn-success btn-lg">Back</button></td>
+                                </tr>
+                            </c:if>
                         </table>
                     </div>
                 </div>

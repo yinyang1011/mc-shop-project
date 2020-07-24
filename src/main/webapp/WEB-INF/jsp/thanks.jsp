@@ -1,9 +1,8 @@
 <%-- 
-    Document   : home
-    Created on : Jun 20, 2019, 6:59:56 PM
-    Author     : Ngoc Man
+    Document   : MC-Project
+    Finished   : 25/07/2020
+    Author     : Nguyen Ngoc Man
 --%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
