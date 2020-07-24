@@ -22,7 +22,7 @@ INSERT INTO product VALUES
 (DEFAULT, 'Li-Ion 2 cell', 'SSD 512 GB M.2 PCIe', 'Windows 10 Home SL', '3.6 GHz', 'Intel Core i5', 'Asus 1 - Established in 1989, ASUS is a multinational company known for the world’s best motherboards and high-quality personal computers, monitors, graphics cards, routers and other technology solutions.', 'Asus VivoBook X409JA',
 15490000,'resources/img/asus1.jpg','8 GB','14 inch', 'Intel UHD Graphics', '1.47 kg', 'Bluetooth v5.0, Wi-Fi 802.11 a/b/g/n/ac', 2),
 
-(DEFAULT, 'Li-Ion 3 cell', 'SSD 512 GB M.2 PCIe', 'Windows 10 Home SL', '3.6 GHz', 'Intel Core i5', 'HP 1 - Our vision is to create technology that makes life better for everyone, everywhere — every person, every organization, and every community around the globe. This motivates us — inspires us — to do what we do. This is our calling. This is a new HP.', 'HP 15s',
+(DEFAULT, 'Li-Ion 3 cell', 'SSD 512 GB M.2 PCIe', 'Windows 10 Home SL', '3.6 GHz', 'Intel Core i5', 'HP 1 - Our vision is to create technology that makes life better for everyone, everywhere — every person, every organization, and every community around the globe. This motivates us — inspires us — to do what we do. This is our calling. This is a new HP.', 'HP 20f',
 16490000,'resources/img/hp1.jpg','8 GB','15.6 inch', 'Intel UHD Graphics', '1.69 kg', 'Bluetooth 4.2, Wi-Fi 802.11 a/b/g/n/ac', 3),
 
 (DEFAULT, 'Li-Ion 2 cell', 'SSD 512 GB M.2 PCIe', 'Windows 10 Home SL', '4.6 GHz', 'Intel Core i7', 'Lenovo 1 - Lenovo is innovating to lead in the PC+ Era. Already the worlds leading PC company, Lenovo is also a leader in smartphones and tablets as it works to become one of the most respected technology companies in the world.', 'Lenovo Ideapad S145',
@@ -164,6 +164,39 @@ INSERT INTO product_image VALUES
 (DEFAULT, 'resources/img/asus-pm2.jpg', NULL, 2),
 (DEFAULT, 'resources/img/hp-pm1.jpg', NULL, 3),
 (DEFAULT, 'resources/img/hp-pm2.jpg', NULL, 3)
+;
+
+INSERT INTO favorite VALUES
+(DEFAULT, 10, 11),
+(DEFAULT, 10, 12),
+(DEFAULT, 10, 13),
+(DEFAULT, 10, 14)
+;
+
+SELECT * 
+FROM favorite
+WHERE product_id = 11
+;
+
+SELECT f.id, f.account_id, f.product_id
+FROM favorite f
+INNER JOIN product p
+ON f.product_id = p.id
+WHERE p.id = 11 
+;
+
+SELECT id
+FROM favorite
+WHERE product_id = 11
+;
+
+-- Tra ve list san pham theo account
+SELECT p.battery, p.brandId, p.hard_drive_capacity, p.operating_system, p.id, p.processor_speed, p.processor_type, p.product_description,
+p.product_name, p.product_price, p.product_url_image, p.ram_memory, p.screen_size, p.video_graphics_adaptor, p.weight, p.wireless_technology
+FROM product p
+INNER JOIN favorite f
+ON p.id = f.product_id
+WHERE f.account_id = 10
 ;
 
 -- Trả về số product_image có khuyến mãi trong time này.

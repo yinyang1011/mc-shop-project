@@ -63,4 +63,13 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
             + "LIMIT 5",
             nativeQuery = true)
     public List<ProductEntity> findProductHot();
+
+    @Query(value = "SELECT p.battery, p.brandId, p.hard_drive_capacity, p.operating_system, p.id, p.processor_speed, p.processor_type, p.product_description,\n"
+            + "p.product_name, p.product_price, p.product_url_image, p.ram_memory, p.screen_size, p.video_graphics_adaptor, p.weight, p.wireless_technology\n"
+            + "FROM product p\n"
+            + "INNER JOIN favorite f\n"
+            + "ON p.id = f.product_id\n"
+            + "WHERE f.account_id = ?1",
+            nativeQuery = true)
+    public List<ProductEntity> findFavoriteProducts(int accountId);
 }

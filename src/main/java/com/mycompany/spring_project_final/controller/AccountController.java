@@ -7,10 +7,16 @@ package com.mycompany.spring_project_final.controller;
 
 import com.mycompany.spring_project_final.entities.AccountEntity;
 import com.mycompany.spring_project_final.entities.BrandEntity;
+import com.mycompany.spring_project_final.entities.FavoriteEntity;
 import com.mycompany.spring_project_final.entities.OrdersEntity;
+import com.mycompany.spring_project_final.entities.ProductEntity;
+import com.mycompany.spring_project_final.entities.PromotionDetailEntity;
 import com.mycompany.spring_project_final.service.AccountService;
 import com.mycompany.spring_project_final.service.BrandService;
+import com.mycompany.spring_project_final.service.FavoriteService;
 import com.mycompany.spring_project_final.service.OrdersService;
+import com.mycompany.spring_project_final.service.ProductService;
+import com.mycompany.spring_project_final.service.PromotionDetailService;
 import com.mycompany.spring_project_final.service.SendMailSevice;
 import java.util.List;
 import javax.mail.MessagingException;
@@ -38,8 +44,18 @@ public class AccountController {
 
     @Autowired
     private SendMailSevice mailSevice;
+
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private PromotionDetailService promotionDetailService;
+
+    @Autowired
+    private FavoriteService favoriteService;
 
     @RequestMapping("account")
     public String ycLogin(Model model, HttpSession session) {
@@ -65,7 +81,7 @@ public class AccountController {
             } else if (account.getStatus().equalsIgnoreCase("registered")) {
                 model.addAttribute("message", "(Please check your email before login)");
             }
-        }        
+        }
         List<BrandEntity> listBrand = brandService.getBrands();
         model.addAttribute("accountSession", (AccountEntity) session.getAttribute("account"));
         model.addAttribute("listBrand", listBrand);
@@ -119,12 +135,15 @@ public class AccountController {
         model.addAttribute("message", "(Your email has been confirmed. Please login)");
         return "signin";
     }
+
     @RequestMapping(value = "logout")
     public String logout(Model model, HttpSession session) {
+        List<BrandEntity> listBrand = brandService.getBrands();
         session.removeAttribute("account");
+        model.addAttribute("listBrand", listBrand);
         return "signin";
     }
-    
+
     @RequestMapping("information")
     public String showFormInformation(Model model, HttpSession session) {
         List<BrandEntity> listBrand = brandService.getBrands();
@@ -134,13 +153,14 @@ public class AccountController {
         model.addAttribute("account", new AccountEntity());
         return "register";
     }
+
     @RequestMapping(value = "/edit-infor", method = RequestMethod.POST)
     public String editInformation(Model model,
             @ModelAttribute("account") AccountEntity accountEntity,
             HttpSession session) {
         List<BrandEntity> listBrand = brandService.getBrands();
         AccountEntity account = (AccountEntity) session.getAttribute("account");
-        
+
         account.setFirstName(accountEntity.getFirstName());
         account.setLastName(accountEntity.getLastName());
         account.setPassword(accountEntity.getPassword());
@@ -149,12 +169,13 @@ public class AccountController {
         account.setIdCard(accountEntity.getIdCard());
         account.setBirthDate(accountEntity.getBirthDate());
         account.setGender(accountEntity.getGender());
-        
+
         accountService.save(account);
         model.addAttribute("listBrand", listBrand);
         model.addAttribute("accountSession", account);
         return "signin";
     }
+
     @RequestMapping("owner-orders")
     public String showOwnerOrders(Model model, HttpSession session) {
         List<BrandEntity> listBrand = brandService.getBrands();
@@ -164,5 +185,82 @@ public class AccountController {
         List<OrdersEntity> listOrders = ordersService.findOrdersByAccountId(account.getId());
         model.addAttribute("listOrders", listOrders);
         return "owner-orders";
-    }              
+    }
+
+    @RequestMapping("favorite")
+    public String showFavoriteProducts(Model model, HttpSession session) {
+        List<BrandEntity> listBrand = brandService.getBrands();
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        if (account == null) {
+            model.addAttribute("message", "(Log in before adding/view favorite products!)");
+            return "signin";
+        }
+        List<ProductEntity> listProducts = productService.findFavoriteProducts(account.getId());
+        List<PromotionDetailEntity> listPromotion = (List<PromotionDetailEntity>) promotionDetailService.getProductHavePromotion();
+        model.addAttribute("listPromotion", listPromotion);
+
+        List<ProductEntity> productListNPM = (List<ProductEntity>) productService.getProductNoPromotion();
+        model.addAttribute("productListNPM", productListNPM);
+        model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listBrand", listBrand);
+        model.addAttribute("accountSession", account);
+        return "favorite";
+    }
+
+    @RequestMapping(value = "remove-favorite-product/{productId}", method = RequestMethod.GET)
+    public String removeFavoriteProducts(Model model,
+            @PathVariable("productId") int productId,
+            HttpSession session) {
+        FavoriteEntity favoriteEntity = favoriteService.findFavoriteByProductId(productId);
+        favoriteEntity.setAccount(null);
+        favoriteEntity.setProduct(null);
+        favoriteService.deleteId(productId);
+
+        if (!favoriteService.checkExists(favoriteEntity)) {
+            model.addAttribute("message", "(Delete Success!)");
+        }
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        model.addAttribute("accountSession", account);
+        return "redirect:/favorite";
+    }
+
+    @RequestMapping("/favorite/{productId}")
+    public String addFavorite(Model model,
+            @PathVariable("productId") int productId,
+            HttpSession session) {
+        List<BrandEntity> listBrand = brandService.getBrands();
+        AccountEntity account = (AccountEntity) session.getAttribute("account");
+        if (account == null) {
+            model.addAttribute("message", "(Log in before adding/view favorite products!)");
+            return "signin";
+        }
+        ProductEntity productEntity = productService.findProductById(productId);
+        if (favoriteService.checkFavoriteId(productId)) {
+            FavoriteEntity favoriteEntity = new FavoriteEntity();
+            favoriteEntity.setAccount(account);
+            favoriteEntity.setProduct(productEntity);
+            favoriteService.save(favoriteEntity);
+        } else {
+            model.addAttribute("message", "(Products already in the wishlist!)");
+            List<ProductEntity> listProducts = productService.findFavoriteProducts(account.getId());
+            List<PromotionDetailEntity> listPromotion = (List<PromotionDetailEntity>) promotionDetailService.getProductHavePromotion();
+            model.addAttribute("listPromotion", listPromotion);
+            List<ProductEntity> productListNPM = (List<ProductEntity>) productService.getProductNoPromotion();
+            model.addAttribute("productListNPM", productListNPM);
+            model.addAttribute("listProducts", listProducts);
+            model.addAttribute("listBrand", listBrand);
+            model.addAttribute("accountSession", account);
+            return "favorite";
+        }
+
+        List<ProductEntity> listProducts = productService.findFavoriteProducts(account.getId());
+        List<PromotionDetailEntity> listPromotion = (List<PromotionDetailEntity>) promotionDetailService.getProductHavePromotion();
+        model.addAttribute("listPromotion", listPromotion);
+        List<ProductEntity> productListNPM = (List<ProductEntity>) productService.getProductNoPromotion();
+        model.addAttribute("productListNPM", productListNPM);
+        model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listBrand", listBrand);
+        model.addAttribute("accountSession", account);
+        return "favorite";
+    }
 }

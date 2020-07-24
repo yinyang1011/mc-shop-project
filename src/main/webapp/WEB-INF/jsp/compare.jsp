@@ -120,10 +120,21 @@
                                                 <fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %
                                             </c:if>
                                         </c:forEach>
+                                        <c:forEach var="pn" items="${productListNPM}">
+                                            <c:if test = "${pn.id == p1.id}">
+                                                <p>0 %</p>
+                                            </c:if>
+                                        </c:forEach>               
                                     </td>
-                                    <td><c:forEach var="p" items="${listPromotion}">
+                                    <td>
+                                        <c:forEach var="p" items="${listPromotion}">
                                             <c:if test = "${p.product.id == p2.id}">
                                                 <fmt:formatNumber type="number" value = "${p.promotion.discountValue * 100}" pattern="###" /> %
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:forEach var="pn" items="${productListNPM}">
+                                            <c:if test = "${pn.id == p2.id}">
+                                                <p>0 %</p>
                                             </c:if>
                                         </c:forEach>
                                     </td>
@@ -285,7 +296,7 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="product-btns">
-                                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                                        <button class="add-to-wishlist" onclick="location.href = '<c:url value="/compare/${product.id}"/>'"><i class="fa fa-heart-o"></i><span class="tooltipp">favorite</span></button>
                                                         <button class="add-to-compare"onclick="location.href = '<c:url value="/compare/${product.id}"/>'"><i class="fa fa-exchange"></i><span class="tooltipp">compare</span></button>
                                                         <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                                     </div>

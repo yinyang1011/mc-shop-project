@@ -36,6 +36,11 @@ public class FavoriteEntity implements Serializable {
     
     public FavoriteEntity(){}
 
+    public FavoriteEntity(ProductEntity product, AccountEntity account) {
+        this.product = product;
+        this.account = account;
+    }
+
     public int getId() {
         return id;
     }

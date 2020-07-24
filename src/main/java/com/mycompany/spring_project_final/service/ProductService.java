@@ -62,6 +62,10 @@ public class ProductService {
         return productRepository.findProductHot();
     }
     
+    public List<ProductEntity> findFavoriteProducts(int accountId) {
+        return productRepository.findFavoriteProducts(accountId);
+    }
+    
     public List<ProductEntity> sortProductsAsc(List<ProductEntity> products) {   
         List<ProductEntity> productsAsc = products.stream() 
                 .sorted(Comparator.comparingDouble(ProductEntity::getProductPrice)) 

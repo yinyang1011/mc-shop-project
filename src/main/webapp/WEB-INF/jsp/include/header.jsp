@@ -71,7 +71,7 @@
                         <!-- /Wishlist -->
                         <!-- Wishlist -->
                         <div>
-                            <a href="#">
+                            <a href="<c:url value="/favorite"/>">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Favorite</span>
                             </a>

@@ -164,7 +164,7 @@
                                                 <i class="fa fa-star"></i>
                                             </div>
                                             <div class="product-btns">
-                                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">favorite</span></button>
+                                                <button class="add-to-wishlist" onclick="location.href = '<c:url value="/favorite/${product.id}"/>'"><i class="fa fa-heart-o"></i><span class="tooltipp">favorite</span></button>
                                                 <button class="add-to-compare" onclick="location.href = '<c:url value="/compare/${product.id}"/>'"><i class="fa fa-exchange"></i><span class="tooltipp">compare</span></button>
                                                 <button class="quick-view" onclick="location.href = '<c:url value="/detail-product/${product.id}"/>'"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
                                             </div>

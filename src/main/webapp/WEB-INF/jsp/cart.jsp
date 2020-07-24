@@ -70,7 +70,9 @@
                                     <td style="text-align: center"><img style="width: 120px" src="<c:url value="/${item.product.productUrlImage}"/>"></td>
 
                                     <td><fmt:formatNumber type="number" value = "${item.product.productPrice}" pattern="###,###" />₫</td>
-                                    <td>${item.discount}</td>                                 
+                                    <td>
+                                        <fmt:formatNumber type="number" value = "${item.discount * 100}" pattern="###" /> %
+                                    </td>                                 
                                     <td>
                                         <form method="POST" action="${pageContext.request.contextPath}/update-quantity/${item.product.id}" class="form-inline">
                                             <div class="form-group" style="display:flex">
